@@ -9,6 +9,7 @@ const ViewExpenses = ({ expenses, setExpenses }) => {
   const [totalDailyAmount, setTotalDailyAmount] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling the modal
   const [currentExpense, setCurrentExpense] = useState(null); // State to store the current expense being edited
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     // Sort expenses in descending order based on date (latest first)
@@ -28,7 +29,7 @@ const ViewExpenses = ({ expenses, setExpenses }) => {
     const { id, date, description, amount } = updatedExpense;
     // Call your API to update the expense here
     // For demonstration purposes, just update the state directly
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    console.log(updatedExpense);
     const resp = await fetch(`${baseUrl}/api/expense/update`,{
       method:'PUT',
       headers:{
@@ -51,9 +52,24 @@ const ViewExpenses = ({ expenses, setExpenses }) => {
 
   const handleDeleteExpense = async (id) => {
     // Handle delete logic here
+    const resp = await fetch(`${baseUrl}/api/expense/delete`,{
+      method:'DELETE',
+      headers:{
+        'Content-Type':'application/json',
+        'token': localStorage.getItem('token')
+      },
+      body: JSON.stringify({id})
+    })
+
+    const res = await resp.json();
+    if(res.success){
+      const updatedExpenses = expenses.filter(expense => expense._id !== id);
+      setExpenses(updatedExpenses);
+    }
   };
 
   const openModal = (expense) => {
+    console.log(expense);
     setCurrentExpense(expense);
     setIsModalOpen(true);
   };
@@ -89,8 +105,7 @@ const ViewExpenses = ({ expenses, setExpenses }) => {
         monthYear={monthYear}
         onUpdate={(updatedExpense) => handleUpdateExpense(updatedExpense)}
         onDelete={(id) => handleDeleteExpense(id)}
-        openModal={openModal}
-        setCurrentExpense={setCurrentExpense}
+        openModal={(expense) => openModal(expense)}
       />
     ));
   };
@@ -109,8 +124,7 @@ const ViewExpenses = ({ expenses, setExpenses }) => {
             expense={expense}
             onUpdate={(updatedExpense) => handleUpdateExpense(updatedExpense)}
             onDelete={(id) => handleDeleteExpense(id)}
-            onEdit={() => openModal(expense)} // Pass the expense to open the modal for editing
-            setCurrentExpense={setCurrentExpense}
+            onEdit={(expense) => openModal(expense)} // Pass the expense to open the modal for editing
           />
         ))}
       </div>
@@ -140,7 +154,7 @@ const ViewExpenses = ({ expenses, setExpenses }) => {
         {renderExpenses()}
       </div>
       {/* Modal component */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} expense={currentExpense} onUpdate={handleUpdateExpense} />
+      {isModalOpen && currentExpense._id && <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} expense={currentExpense} onUpdate={handleUpdateExpense} />}
     </div>
   );
 };

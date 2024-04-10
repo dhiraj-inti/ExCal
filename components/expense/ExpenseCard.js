@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
-const ExpenseCard = ({ expense, onUpdate, onDelete, onEdit, setCurrentExpense }) => {
+const ExpenseCard = ({ expense, onUpdate, onDelete, onEdit }) => {
   const { date, description, amount } = expense;
 
   // Format the date to "dd-mm-yyyy" format
   const formattedDate = new Date(date).toLocaleDateString('en-GB');
 
-  useEffect(()=>{
-    setCurrentExpense(expense)
-  })
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex items-center justify-between">
@@ -21,7 +18,7 @@ const ExpenseCard = ({ expense, onUpdate, onDelete, onEdit, setCurrentExpense })
       <div className="flex items-center space-x-2">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-          onClick={onEdit}
+          onClick={()=>onEdit(expense)}
         >
           <MdEdit />
         </button>

@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     
             const id = req.body.id;
             
-            await Expense.deleteOne({id:id});
+            await Expense.deleteOne({_id:id});
 
             res.status(200).json({success: true, message: "Successfully deleted expense"})
         });

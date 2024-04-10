@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ExpenseCard from './ExpenseCard';
 
-const MonthlyCard = ({ expenses, monthYear, onUpdate, onDelete, openModal, setCurrentExpense }) => {
+const MonthlyCard = ({ expenses, monthYear, onUpdate, onDelete, openModal }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Filter expenses by month-year
@@ -34,8 +34,7 @@ const MonthlyCard = ({ expenses, monthYear, onUpdate, onDelete, openModal, setCu
                 expense={expense}
                 onUpdate={(updatedExpense) => onUpdate(updatedExpense)}
                 onDelete={(id) => onDelete(id)}
-                onEdit={()=> openModal(expense)}
-                setCurrentExpense={setCurrentExpense}
+                onEdit={(expense) => openModal(expense)}
                 />
           ))}
         </div>

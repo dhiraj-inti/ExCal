@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Modal = ({ isOpen, onClose, expense, onUpdate }) => {
   // Check if expense is valid before setting initial state
-  const initialDate = expense ? expense.date : '';
+  const initialDate = expense ? new Date(expense.date).toISOString().split('T')[0] : '';
   const initialDescription = expense ? expense.description : '';
   const initialAmount = expense ? expense.amount : '';
 
