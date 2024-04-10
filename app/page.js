@@ -8,7 +8,8 @@ export default function Home() {
   
   useEffect(()=>{
     const init = async()=>{
-      const resp = await fetch("http://localhost:3000/api/expense/get",{
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const resp = await fetch(`${baseUrl}/api/expense/get`,{
         method:'POST',
         headers: {
           'token':localStorage.getItem('token')

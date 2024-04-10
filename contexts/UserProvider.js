@@ -6,7 +6,8 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     const getUser = async () => {
-      const resp = await fetch("http://localhost:3000/api/getuser",{
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const resp = await fetch(`${baseUrl}/api/getuser`,{
         method:'POST',
         headers:{
           "token": localStorage.getItem('token'),

@@ -3,7 +3,6 @@ import UserContext from "@/contexts/UserContext";
 import hashPassword from "@/utilities/auth/hashPassword";
 import { useRouter } from "next/navigation";
 import React, {useState, useContext} from "react"
-require('dotenv').config();
 
 
 const Page = () => {
@@ -13,14 +12,13 @@ const Page = () => {
     const {getUser} = useContext(UserContext);
     const router = useRouter();
 
-    const handleSubmit = async (e) => { 
+    const handleSubmit = async (e) => {   
       e.preventDefault();
       // Add your login logic here
       console.log('Logging in with email:', email, 'and password:', password);
       const hashedPassword = await hashPassword(password);
-      const server = process.env.HOST;
-      console.log(server);
-      const resp = await fetch(`http://${process.env.HOST}:3000/api/login`,{
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const resp = await fetch(`${baseUrl}/api/login`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

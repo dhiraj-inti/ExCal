@@ -17,7 +17,8 @@ const SignupForm = () => {
   const signup = async()=>{
   
     const hashedPassword = await hashPassword(password);
-    const resp = await fetch('http://localhost:3000/api/signup',{
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const resp = await fetch(`${baseUrl}/api/signup`,{
         method:'POST',
         headers:{
             'Content-type':'application/json'

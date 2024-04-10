@@ -28,7 +28,8 @@ const ViewExpenses = ({ expenses, setExpenses }) => {
     const { id, date, description, amount } = updatedExpense;
     // Call your API to update the expense here
     // For demonstration purposes, just update the state directly
-    const resp = await fetch("http://localhost:3000/api/expense/update",{
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const resp = await fetch(`${baseUrl}/api/expense/update`,{
       method:'PUT',
       headers:{
         'Content-Type':'application/json',

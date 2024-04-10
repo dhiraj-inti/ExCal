@@ -12,7 +12,8 @@ const AddExpenseForm = ({expenses, setExpenses}) => {
   const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
   const addExpense = async()=>{
-    const resp = await fetch("http://localhost:3000/api/expense/add",{
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const resp = await fetch(`${baseUrl}/api/expense/add`,{
         method:'POST',
         headers:{
             'Content-Type':'application/json',

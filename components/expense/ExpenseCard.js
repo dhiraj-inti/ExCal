@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
 const ExpenseCard = ({ expense, onUpdate, onDelete, onEdit, setCurrentExpense }) => {
@@ -7,7 +7,9 @@ const ExpenseCard = ({ expense, onUpdate, onDelete, onEdit, setCurrentExpense })
   // Format the date to "dd-mm-yyyy" format
   const formattedDate = new Date(date).toLocaleDateString('en-GB');
 
-  setCurrentExpense(expense)
+  useEffect(()=>{
+    setCurrentExpense(expense)
+  })
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex items-center justify-between">
