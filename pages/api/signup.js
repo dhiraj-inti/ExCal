@@ -33,7 +33,7 @@ export default async function handler(req, res) {
         // Save the user document to the database
         await newUser.save();
         
-        const token = generateToken({user: {id: newUser._id}},process.env.JWT_SECRET, '1h');
+        const token = generateToken({user: {id: newUser._id}},"DHIRAJ_SECRET", '1h');
         return res.status(200).json({ success: true,token: token, message: 'Signup successful' });
       } catch (error) {
         console.error('Error creating user:', error);

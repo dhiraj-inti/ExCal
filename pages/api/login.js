@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         // Simulate user authentication (replace with actual authentication logic)
         if ( user && bcrypt.compare(password, user.password)) {
           // Authentication successful
-          const token = generateToken({user: {id: user._id}},process.env.JWT_SECRET, '1h');
+          const token = generateToken({user: {id: user._id}},"DHIRAJ_SECRET", '1h');
           return res.status(200).json({success: true,token: token, message: 'Login successful!' });
         } else {
           // Authentication failed

@@ -1,6 +1,7 @@
 "use client"
 import UserContext from "@/contexts/UserContext";
 import hashPassword from "@/utilities/auth/hashPassword";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import { useRouter } from "next/navigation";
 import React, {useState, useContext} from "react"
 
@@ -27,6 +28,7 @@ const Page = () => {
       })
 
       const res = await resp.json();
+      console.log(res);
       if (res.success){
         localStorage.setItem('token',res.token);
         await getUser();

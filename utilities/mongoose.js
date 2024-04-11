@@ -11,7 +11,7 @@ const connectToDatabase = async () => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect("mongodb://mongo:27017/ExCal");
     isConnected = true;
     console.log('Connected to MongoDB');
   } catch (error) {

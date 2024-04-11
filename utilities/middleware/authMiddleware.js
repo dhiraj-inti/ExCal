@@ -12,7 +12,7 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     // Verify the token and extract the payload
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, "DHIRAJ_SECRET");
     req.data = decoded; // Attach the decoded user information to the request object
     await next(); // Proceed to the next middleware or route handler
   } catch (error) {
